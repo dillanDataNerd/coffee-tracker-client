@@ -1,0 +1,64 @@
+import { useState } from "react";
+import frenchpressImg from "../assets/frenchpress.webp";
+import mokaImg from "../assets/moka.jpg";
+import espressoImg from "../assets/espresso.jpeg";
+import aeropressImg from "../assets/aeropress.jpg";
+import coldbrewImg from "../assets/coldbrew.webp";
+import pouroverImg from "../assets/pourover.jpg";
+import flatwhiteImg from "../assets/flatwhite.jpg";
+import defaultImg from "../assets/nav-brew.svg";
+
+
+function BrewCard({ method, tastingNotes, rating, bean }) {
+  let img = defaultImg;
+  let alt = "default image of coffee";
+
+  switch (method) {
+    case "frenchpress":
+      img = frenchpressImg;
+      alt = "frenchpress";
+      break;
+    case "moka":
+      img = mokaImg;
+      alt = "moka";
+      break;
+    case "espresso":
+      img = espressoImg;
+      alt = "espresso";
+      break;
+    case "aeropress":
+      img = aeropressImg;
+      alt = "aeropress";
+      break;
+    case "coldbrew":
+      img = coldbrewImg;
+      alt = "coldbrew";
+      break;
+    case "pourover":
+      img = pouroverImg;
+      alt = "pourover";
+      break;
+    case "flatwhite":
+      img = flatwhiteImg;
+      alt = "flatwhite";
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <>
+      <div className="card" style={{width:"18rem"}}>
+        <img src={img} className="card-img-top" alt={alt} />
+        <div className="card-body">
+          <h5 className="card-title">{bean}</h5>
+          <h5>Rating: {rating}</h5>
+          <p className="card-text">
+            {tastingNotes}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+export default BrewCard;
