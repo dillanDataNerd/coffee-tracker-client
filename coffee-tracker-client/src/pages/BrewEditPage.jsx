@@ -1,15 +1,17 @@
 import { Form } from "react-bootstrap";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-function CreateBrew() {
-  const navigate = useNavigate();
+function BrewEditPage() {
+      const navigate = useNavigate();
+      const params=useParams()
 
+      const [id,setId]=useState("")
   const [bean, setBean] = useState("");
-  const [method, setMethod] = useState("Espresso");
+  const [method, setMethod] = useState("");
   const [grind, setGrind] = useState(""); // keep as string so empty is allowed
   const [coffee_g, setCoffee_g] = useState(""); // same here; convert on submit
   const [output_g, setOutput_g] = useState("");
@@ -17,9 +19,12 @@ function CreateBrew() {
   const [rating, setRating] = useState(0);
   const [tastingNotes, setTastingNotes] = useState("");
   const [improvementNotes, setImprovementNotes] = useState("");
-  const [allBeans, setAllBeans] = useState([]);
+    const [allBeans, setAllBeans] = useState([]);
+
 
   useEffect(() => {
+
+    // get value of all beans
     let beanList = [];
 
     axios
@@ -33,12 +38,32 @@ function CreateBrew() {
       .catch((error) => {
         console.log(error);
       });
+
+    // get value of current brew and set them as default values
+    axios
+      .get(`http://localhost:5005/brews/${params.brewId}`)
+      .then((response) => {
+        let brew=response.data
+        setId(brew.id)
+        setBean(brew.bean);
+        setMethod(brew.method)
+        setGrind(brew.grind)
+        setCoffee_g(brew.coffee_g)
+        setOutput_g(brew.output_g)
+        setTime_s(brew.time_s)
+        setRating(brew.rating)
+        setTastingNotes(brew.tastingNotes)
+        setImprovementNotes(brew.improvementNotes)
+        })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault(); // stop full page reload
     // Convert number fields to numbers (NaN-safe) at submission time
-    const newBrew = {
+    const updateBrew = {
       bean,
       method,
       grind,
@@ -52,17 +77,17 @@ function CreateBrew() {
     };
 
     axios
-      .post(`http://localhost:5005/brews/`, newBrew)
+      .patch(`http://localhost:5005/brews/${id}`, updateBrew)
       .then(() => {
-        console.log("brew submission successful");
+        console.log("brew edit successful");
         navigate(-1)
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  return (
+    
+return (
     <>
       <Form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -235,10 +260,10 @@ function CreateBrew() {
             className="btn btn-secondary"
             onClick={() => navigate(-1)}
           >
-            Back
+            Discard changes
           </button>
           <button type="submit" className="btn btn-primary">
-            Submit
+            Save
           </button>
         </div>
       </Form>
@@ -248,4 +273,4 @@ function CreateBrew() {
   );
 }
 
-export default CreateBrew;
+export default BrewEditPage;

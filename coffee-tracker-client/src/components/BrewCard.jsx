@@ -7,9 +7,9 @@ import coldbrewImg from "../assets/coldbrew.webp";
 import pouroverImg from "../assets/pourover.jpg";
 import flatwhiteImg from "../assets/flatwhite.jpg";
 import defaultImg from "../assets/nav-brew.svg";
+import { Link } from "react-router-dom";
 
-
-function BrewCard({ method, tastingNotes, rating, bean }) {
+function BrewCard({ method, tastingNotes, rating, bean, id, date }) {
   let img = defaultImg;
   let alt = "default image of coffee";
 
@@ -48,14 +48,21 @@ function BrewCard({ method, tastingNotes, rating, bean }) {
 
   return (
     <>
-      <div className="card" style={{width:"18rem"}}>
+      <div className="card" style={{ width: "18rem" }}>
         <img src={img} className="card-img-top" alt={alt} />
         <div className="card-body">
-          <h5 className="card-title">{bean}</h5>
+          <Link to={`/brews/${id}`}>
+            <h5 className="card-title">{bean}</h5>
+          </Link>
           <h5>Rating: {rating}</h5>
-          <p className="card-text">
-            {tastingNotes}
-          </p>
+          <p className="card-text">{tastingNotes}</p>
+          <div className="card-footer text-body-secondary">
+            {new Date(date).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </div>
         </div>
       </div>
     </>

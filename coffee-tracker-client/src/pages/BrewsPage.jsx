@@ -29,7 +29,6 @@ function BrewsPage() {
         <>
         <LoadingCard/>
         <LoadingCard/>
-        <LoadingCard/>
 
       <Navbar/>
       </>
@@ -40,7 +39,7 @@ function BrewsPage() {
   return (
     <>
       {brews.map(eachBrew=>{
-        return <BrewCard key={eachBrew.id} method={eachBrew.method}  tastingNotes={eachBrew.tastingNotes} rating={eachBrew.rating} bean={eachBrew.bean}/>
+        return <BrewCard key={eachBrew.id} id={eachBrew.id} method={eachBrew.method}  tastingNotes={eachBrew.tastingNotes} rating={eachBrew.rating} bean={eachBrew.bean} date={eachBrew.createdAt}/>
       })}
 
       <Navbar />

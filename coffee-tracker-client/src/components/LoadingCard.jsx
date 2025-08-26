@@ -5,8 +5,9 @@ function LoadingCard() {
           <div className="card" aria-hidden="true">
         <img
           src={brewIcon}
-          className="card-img-top img-fluid w-25"
+          className="card-img-top img-fluid"
           alt="loading brew image"
+          style={{width:"18rem"}}
         />
         <div className="card-body">
           <h5 className="card-title placeholder-glow">
