@@ -26,7 +26,7 @@ function CreateBrew() {
       .get("http://localhost:5005/beans")
       .then((response) => {
         response.data.map((eachBean) => {
-          beanList.push({ roaster: eachBean.roaster, name: eachBean.name });
+          beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
         });
         setAllBeans(beanList);
       })
@@ -78,8 +78,8 @@ function CreateBrew() {
             {allBeans.map((eachBean) => {
               return(
               <option
-                key={eachBean.name}
-                value={eachBean.name}
+                key={eachBean.id}
+                value={eachBean.id}
               >{`${eachBean.roaster} - ${eachBean.name}`}</option>);
             })}
           </select>

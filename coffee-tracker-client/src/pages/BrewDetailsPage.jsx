@@ -19,7 +19,7 @@ const navigate=useNavigate()
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5005/brews/${params.brewId}`
+        `http://localhost:5005/brews/${params.brewId}?_expand=bean`
       );
       setBrew(response.data);
       setPageLoaded(true);
@@ -56,7 +56,7 @@ const navigate=useNavigate()
         method={brew.method}
         tastingNotes={brew.tastingNotes}
         rating={brew.rating}
-        bean={brew.bean}
+        bean={brew.bean.name}
         date={brew.createdAt}
       />
 
@@ -69,14 +69,14 @@ const navigate=useNavigate()
       <p>Yield: {brew.output_g}g</p>
       <p>Improvement notes: {brew.improvementNotes}</p>
 
-      {/* <BeanCard
-        key={brew.beans.name}
-        name={brew.beans.name}
-        roaster={brew.beans.roaster}
-        origin={brew.beans.origin}
-        notes={brew.beans.notes}
-        image={brew.beans.imageUrl}
-      /> */}
+      <BeanCard
+        key={brew.bean.id}
+        name={brew.bean.name}
+        roaster={brew.bean.roaster}
+        origin={brew.bean.origin}
+        notes={brew.bean.notes}
+        image={brew.bean.imageUrl}
+      />
 
       <button type="button" className="btn btn-danger" onClick={handleDeleteButton}>
         Delete

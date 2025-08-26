@@ -11,7 +11,7 @@ function BrewsPage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:5005/brews");
+      const response = await axios.get("http://localhost:5005/brews?_expand=bean");
       setBrews(response.data);
       setPageLoaded (true);
     } catch (error) {
@@ -39,7 +39,7 @@ function BrewsPage() {
   return (
     <>
       {brews.map(eachBrew=>{
-        return <BrewCard key={eachBrew.id} id={eachBrew.id} method={eachBrew.method}  tastingNotes={eachBrew.tastingNotes} rating={eachBrew.rating} bean={eachBrew.bean} date={eachBrew.createdAt}/>
+        return <BrewCard key={eachBrew.id} id={eachBrew.id} method={eachBrew.method}  tastingNotes={eachBrew.tastingNotes} rating={eachBrew.rating} bean={eachBrew.bean.name} date={eachBrew.createdAt}/>
       })}
 
       <Navbar />

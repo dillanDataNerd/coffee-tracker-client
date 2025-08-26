@@ -10,7 +10,7 @@ function BrewEditPage() {
       const params=useParams()
 
       const [id,setId]=useState("")
-  const [bean, setBean] = useState("");
+  const [beanId, setBeanId] = useState("");
   const [method, setMethod] = useState("");
   const [grind, setGrind] = useState(""); // keep as string so empty is allowed
   const [coffee_g, setCoffee_g] = useState(""); // same here; convert on submit
@@ -31,7 +31,7 @@ function BrewEditPage() {
       .get("http://localhost:5005/beans")
       .then((response) => {
         response.data.map((eachBean) => {
-          beanList.push({ roaster: eachBean.roaster, name: eachBean.name });
+          beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
         });
         setAllBeans(beanList);
       })
@@ -45,7 +45,7 @@ function BrewEditPage() {
       .then((response) => {
         let brew=response.data
         setId(brew.id)
-        setBean(brew.bean);
+        setBeanId(brew.beanId);
         setMethod(brew.method)
         setGrind(brew.grind)
         setCoffee_g(brew.coffee_g)
@@ -64,7 +64,7 @@ function BrewEditPage() {
     e.preventDefault(); // stop full page reload
     // Convert number fields to numbers (NaN-safe) at submission time
     const updateBrew = {
-      bean,
+      beanId,
       method,
       grind,
       coffee_g,
@@ -96,15 +96,15 @@ return (
             className="form-control"
             id="beanInput"
             placeholder="bean"
-            value={bean}
-            onChange={(e) => setBean(e.target.value)}
+            value={beanId}
+            onChange={(e) => setBeanId(e.target.value)}
           >
             <option value="" disabled >Choose a bean</option>
             {allBeans.map((eachBean) => {
               return(
               <option
-                key={eachBean.name}
-                value={eachBean.name}
+                key={eachBean.id}
+                value={eachBean.id}
               >{`${eachBean.roaster} - ${eachBean.name}`}</option>);
             })}
           </select>
