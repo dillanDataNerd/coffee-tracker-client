@@ -14,9 +14,9 @@ function BrewCard({ method, tastingNotes, rating, bean }) {
   let alt = "default image of coffee";
 
   switch (method) {
-    case "frenchpress":
+    case "frenchPress":
       img = frenchpressImg;
-      alt = "frenchpress";
+      alt = "frenchress";
       break;
     case "moka":
       img = mokaImg;
@@ -30,15 +30,15 @@ function BrewCard({ method, tastingNotes, rating, bean }) {
       img = aeropressImg;
       alt = "aeropress";
       break;
-    case "coldbrew":
+    case "coldBrew":
       img = coldbrewImg;
       alt = "coldbrew";
       break;
-    case "pourover":
+    case "pourOver":
       img = pouroverImg;
       alt = "pourover";
       break;
-    case "flatwhite":
+    case "flatWhite":
       img = flatwhiteImg;
       alt = "flatwhite";
       break;
