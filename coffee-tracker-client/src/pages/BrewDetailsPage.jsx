@@ -2,6 +2,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 import Navbar from "../components/Navbar";
 import LoadingCard from "../components/LoadingCard";
@@ -19,7 +21,7 @@ const navigate=useNavigate()
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5005/brews/${params.brewId}?_expand=bean`
+        `${SERVER_URL}/brews/${params.brewId}?_expand=bean`
       );
       setBrew(response.data);
       setPageLoaded(true);
@@ -43,7 +45,7 @@ const navigate=useNavigate()
   }
 
   const handleDeleteButton = ()=>{
-    axios.delete(`http://localhost:5005/brews/${brew.id}`)
+    axios.delete(`${SERVER_URL}/brews/${brew.id}`)
     navigate("/brews")
 
   }

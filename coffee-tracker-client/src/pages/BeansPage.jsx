@@ -5,13 +5,17 @@ import Navbar from "../components/Navbar";
 import LoadingCard from "../components/LoadingCard";
 import BeanCard from "../components/BeanCard";
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
+
 function BeansPage() {
   const [beans, setBeans] = useState([]);
   const [pageLoaded, setPageLoaded] = useState(false);
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:5005/beans");
+      const response = await axios.get(`${SERVER_URL}/beans`);
+      console.log(response.data)
       setBeans(response.data);
       setPageLoaded(true);
     } catch (error) {

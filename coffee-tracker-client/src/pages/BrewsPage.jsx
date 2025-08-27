@@ -4,6 +4,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import LoadingCard from "../components/LoadingCard";
 import BrewCard from "../components/BrewCard";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 function BrewsPage() {
   const [brews, setBrews] = useState([]);
@@ -11,7 +13,8 @@ function BrewsPage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:5005/brews?_expand=bean");
+      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean`);
+      console.log(response.data)
       setBrews(response.data);
       setPageLoaded (true);
     } catch (error) {

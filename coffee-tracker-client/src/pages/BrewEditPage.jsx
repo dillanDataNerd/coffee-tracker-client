@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 function BrewEditPage() {
       const navigate = useNavigate();
@@ -28,7 +30,7 @@ function BrewEditPage() {
     let beanList = [];
 
     axios
-      .get("http://localhost:5005/beans")
+      .get(`${SERVER_URL}/beans`)
       .then((response) => {
         response.data.map((eachBean) => {
           beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
@@ -41,7 +43,7 @@ function BrewEditPage() {
 
     // get value of current brew and set them as default values
     axios
-      .get(`http://localhost:5005/brews/${params.brewId}`)
+      .get(`${SERVER_URL}/brews/${params.brewId}`)
       .then((response) => {
         let brew=response.data
         setId(brew.id)
@@ -77,7 +79,7 @@ function BrewEditPage() {
     };
 
     axios
-      .patch(`http://localhost:5005/brews/${id}`, updateBrew)
+      .patch(`${SERVER_URL}/brews/${id}`, updateBrew)
       .then(() => {
         console.log("brew edit successful");
         navigate(-1)

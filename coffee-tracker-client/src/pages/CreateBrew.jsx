@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 function CreateBrew() {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ function CreateBrew() {
     let beanList = [];
 
     axios
-      .get("http://localhost:5005/beans")
+      .get(`${SERVER_URL}/beans`)
       .then((response) => {
         response.data.map((eachBean) => {
           beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
@@ -52,7 +54,7 @@ function CreateBrew() {
     };
 
     axios
-      .post(`http://localhost:5005/brews/`, newBrew)
+      .post(`${SERVER_URL}/brews/`, newBrew)
       .then(() => {
         console.log("brew submission successful");
         navigate(-1)

@@ -29,6 +29,6 @@ function App() {
 
 export default App;
 
-// import.meta.env.VITE_SERVER_URL
+import.meta.env.VITE_SERVER_URL
 // set this everywhere
 // .env.local VITE_SERVER_URL="http://localhost:5005"
