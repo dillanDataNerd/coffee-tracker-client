@@ -10,6 +10,7 @@ import BrewDetailsPage from "./pages/BrewDetailsPage.jsx";
 import BrewEditPage from "./pages/BrewEditPage.jsx";
 import BeansDetailsPage from "./pages/BeansDetailsPage.jsx";
 import CreateBean from "./pages/CreateBean.jsx";
+import BeanEditPage from "./pages/BeanEditPage.jsx";
 
 function App() {
   return (
@@ -17,12 +18,13 @@ function App() {
       <Routes>
         <Route path={"/"} element={<HomePage />}></Route>
         <Route path={"/brews"} element={<BrewsPage />}></Route>
-        <Route path={"/beans"} element={<BeansPage />}></Route>
         <Route path={"/brews/new"} element={<CreateBrew />}></Route>
         <Route path={"/brews/:brewId"} element={<BrewDetailsPage />}></Route>
         <Route path={"/brews/edit/:brewId"} element={<BrewEditPage />}></Route>
+        <Route path={"/beans"} element={<BeansPage />}></Route>
         <Route path={"/beans/new"} element={<CreateBean />}></Route>
         <Route path={"/beans/:beanId"} element={<BeansDetailsPage />}></Route>
+        <Route path={"/beans/edit/:beanId"} element={<BeanEditPage />}></Route>
         <Route path={"/*"} element={<ErrorPage />}></Route>
       </Routes>
     </>

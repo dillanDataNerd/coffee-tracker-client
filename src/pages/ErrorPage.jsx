@@ -8,7 +8,7 @@ function ErrorPage() {
     <>
 
     <h1>404</h1>
-    <img src="src/assets/error-page.gif" alt="404 error image" />
+    <img src="/error-page.gif" alt="404 error image" />
     <h3> This page you are trying to access doesn't exist anymore or has been moved </h3>
     <Link to={"/"}><Button>Go to Home</Button></Link>
 
