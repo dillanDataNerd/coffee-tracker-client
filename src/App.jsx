@@ -8,6 +8,7 @@ import BeansPage from "./pages/BeansPage.jsx";
 import CreateBrew from "./pages/CreateBrew.jsx";
 import BrewDetailsPage from "./pages/BrewDetailsPage.jsx";
 import BrewEditPage from "./pages/BrewEditPage.jsx";
+import BeansDetailsPage from "./pages/BeansDetailsPage.jsx";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path={"/brews/:brewId"} element={<BrewDetailsPage />}></Route>
         <Route path={"/brews/edit/:brewId"} element={<BrewEditPage />}></Route>
         <Route path={"/beans/new"} element={<HomePage />}></Route>
-        <Route path={"/beans/:beanId"} element={<BrewDetailsPage />}></Route>
+        <Route path={"/beans/:beanId"} element={<BeansDetailsPage />}></Route>
         <Route path={"/*"} element={<ErrorPage />}></Route>
       </Routes>
     </>
@@ -29,6 +30,3 @@ function App() {
 
 export default App;
 
-import.meta.env.VITE_SERVER_URL
-// set this everywhere
-// .env.local VITE_SERVER_URL="http://localhost:5005"

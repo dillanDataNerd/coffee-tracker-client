@@ -45,7 +45,8 @@ function BeansPage() {
       {beans.map((eachBean) => {
         return (
           <BeanCard
-            key={eachBean.name}
+            key={eachBean.id}
+            id={eachBean.id}
             name={eachBean.name}
             roaster={eachBean.roaster}
             origin={eachBean.origin}

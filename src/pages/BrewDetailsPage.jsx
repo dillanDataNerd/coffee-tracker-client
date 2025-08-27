@@ -73,6 +73,7 @@ const navigate=useNavigate()
 
       <BeanCard
         key={brew.bean.id}
+        id={brew.bean.id}
         name={brew.bean.name}
         roaster={brew.bean.roaster}
         origin={brew.bean.origin}
