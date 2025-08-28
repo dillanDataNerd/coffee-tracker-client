@@ -19,6 +19,7 @@ function App() {
         <Route path={"/"} element={<HomePage />}></Route>
         <Route path={"/brews"} element={<BrewsPage />}></Route>
         <Route path={"/brews/new"} element={<CreateBrew />}></Route>
+        <Route path={"/brews/new/:brewId"} element={<CreateBrew />}></Route>
         <Route path={"/brews/:brewId"} element={<BrewDetailsPage />}></Route>
         <Route path={"/brews/edit/:brewId"} element={<BrewEditPage />}></Route>
         <Route path={"/beans"} element={<BeansPage />}></Route>
@@ -32,4 +33,3 @@ function App() {
 }
 
 export default App;
-

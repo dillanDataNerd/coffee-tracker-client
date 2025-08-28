@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -17,6 +17,8 @@ function CreateBean() {
   const [roastLevel, setRoastLevel] = useState("light"); 
   const [notes, setNotes] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault(); 

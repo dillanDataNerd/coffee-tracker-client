@@ -5,14 +5,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+import { useParams } from "react-router-dom";
 
 function CreateBrew() {
   const navigate = useNavigate();
 
   const [beanId, setBeanId] = useState("");
   const [method, setMethod] = useState("Espresso");
-  const [grind, setGrind] = useState(""); // keep as string so empty is allowed
-  const [coffee_g, setCoffee_g] = useState(""); // same here; convert on submit
+  const [grind, setGrind] = useState("");
+  const [coffee_g, setCoffee_g] = useState(""); 
   const [output_g, setOutput_g] = useState("");
   const [time_s, setTime_s] = useState("");
   const [temp_c,setTemp_c] = useState("")
@@ -20,30 +21,60 @@ function CreateBrew() {
   const [tastingNotes, setTastingNotes] = useState("");
   const [improvementNotes, setImprovementNotes] = useState("");
   const [allBeans, setAllBeans] = useState([]);
-
+  const params=useParams()
+  
+  
   useEffect(() => {
+
+    // get list of all bean options to populate beans dropdown
     let beanList = [];
-
+    
     axios
-      .get(`${SERVER_URL}/beans`)
-      .then((response) => {
-        response.data.map((eachBean) => {
-          beanList.push({
-            id: eachBean.id,
-            roaster: eachBean.roaster,
-            name: eachBean.name,
-          });
+    .get(`${SERVER_URL}/beans`)
+    .then((response) => {
+      response.data.map((eachBean) => {
+        beanList.push({
+          id: eachBean.id,
+          roaster: eachBean.roaster,
+          name: eachBean.name,
         });
-        setAllBeans(beanList);
-      })
-      .catch((error) => {
-        console.log(error);
       });
-  }, []);
+      setAllBeans(beanList);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
+    console.log(params)
+    // If the user is recreating a brew, get details of that brew and pre-set paramaters
+    if (params.brewId) {
+      console.log("fetching prev data")
+      getData()
+    }
+
+  }, []);
+  
+
+  const getData = async()=>{
+    try{
+      const response = await axios.get(`${SERVER_URL}/brews/${params.brewId}?_expand=bean`)
+      const previousSettings=response.data
+      setBeanId(previousSettings.bean.id)
+      setMethod(previousSettings.method)
+      setGrind(previousSettings.grind)
+      setCoffee_g(previousSettings.coffee_g)
+      setOutput_g(previousSettings.output_g)
+      setTime_s(previousSettings.time_s)
+      setTemp_c(previousSettings.temp_c)
+      setTastingNotes(previousSettings.tastingNotes)
+      setImprovementNotes(previousSettings.improvementNotes)
+
+    } catch(error){
+      console.log(error)
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault(); // stop full page reload
-    // Convert number fields to numbers (NaN-safe) at submission time
     const newBrew = {
       beanId,
       method,
@@ -79,7 +110,7 @@ function CreateBrew() {
 
           <div className="input-group">
             <select
-              className="form-select" // use form-select for <select> in BS5
+              className="form-select" 
               id="beanIdInput"
               value={beanId}
               onChange={(e) => setBeanId(e.target.value)}

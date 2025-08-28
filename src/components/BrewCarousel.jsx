@@ -1,6 +1,7 @@
 // BrewCarousel.jsx
 import Carousel from "react-bootstrap/Carousel";
 import BrewCard from "./BrewCard";
+import { Link } from "react-router-dom";
 
 // Ensure you have Bootstrap CSS once in your app entry file (e.g., main.jsx):
 // import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,12 +12,12 @@ function BrewCarousel({
   interval = 5000,
   wrap = true,
   controls = true,
-  indicators = true,
+  indicators = false,
 }) {
   if (!brews.length) return null;
 
-  const slides = [...brews]
-  console.log(brews)
+  const slides = [...brews];
+  console.log(brews);
 
   return (
     <Carousel
@@ -30,7 +31,7 @@ function BrewCarousel({
     >
       {slides.map((brew) => (
         <Carousel.Item key={brew.id}>
-          <div className="d-flex justify-content-center p-3">
+          <div className="d-flex flex-column align-items-center p-3">
             <BrewCard
               id={brew.id}
               method={brew.method}
@@ -40,9 +41,14 @@ function BrewCarousel({
               date={brew.createdAt}
               imageUrl={brew.bean?.imageUrl}
             />
+            <Link
+              to={`/brews/new/${brew.id}`}
+              className="btn btn-primary mt-3 w-100"
+              style={{ maxWidth: 480 }}
+            >
+              Brew again
+            </Link>
           </div>
-
-
         </Carousel.Item>
       ))}
     </Carousel>
