@@ -17,6 +17,7 @@ function BrewEditPage() {
   const [coffee_g, setCoffee_g] = useState(""); 
   const [output_g, setOutput_g] = useState("");
   const [time_s, setTime_s] = useState("");
+    const [temp_c, setTemp_c] = useState("");
   const [rating, setRating] = useState(0);
   const [tastingNotes, setTastingNotes] = useState("");
   const [improvementNotes, setImprovementNotes] = useState("");
@@ -54,6 +55,7 @@ function BrewEditPage() {
         setCoffee_g(brew.coffee_g);
         setOutput_g(brew.output_g);
         setTime_s(brew.time_s);
+        setTemp_c(brew.temp_c);
         setRating(brew.rating);
         setTastingNotes(brew.tastingNotes);
         setImprovementNotes(brew.improvementNotes);
@@ -65,21 +67,24 @@ function BrewEditPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // stop full page reload
-    const updateBrew = {
+    const updatedBrew = {
       beanId,
       method,
       grind,
       coffee_g,
       output_g,
       time_s,
+      temp_c,
       rating,
       tastingNotes,
       improvementNotes,
       createdAt: Date.now(),
     };
 
+    console.log(updatedBrew)
+
     axios
-      .patch(`${SERVER_URL}/brews/${id}`, updateBrew)
+      .put(`${SERVER_URL}/brews/${id}`, updatedBrew)
       .then(() => {
         console.log("brew edit successful");
         navigate(-1);
@@ -89,40 +94,55 @@ function BrewEditPage() {
       });
   };
 
-  return (
+    return (
     <>
+      <h1>Log your brew</h1>
       <Form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="beanInput">Bean</label>
-          <select
-            className="form-control"
-            id="beanInput"
-            placeholder="bean"
-            value={beanId}
-            onChange={(e) => setBeanId(e.target.value)}
-          >
-            <option value="" disabled>
-              Choose a bean
-            </option>
-            {allBeans.map((eachBean) => {
-              return (
-                <option
-                  key={eachBean.id}
-                  value={eachBean.id}
-                >{`${eachBean.roaster} - ${eachBean.name}`}</option>
-              );
-            })}
-          </select>
+        <div className="mb-3">
+          <label htmlFor="beanIdInput" className="form-label">
+            Beans
+          </label>
+
+          <div className="input-group">
+            <select
+              className="form-select"
+              id="beanIdInput"
+              value={beanId}
+              onChange={(e) => setBeanId(e.target.value)}
+              required
+            >
+              <option value="" disabled>
+                Please select or create a bean
+              </option>
+              {allBeans.map((eachBean) => (
+                <option key={eachBean.id} value={eachBean.id}>
+                  {`${eachBean.roaster} - ${eachBean.name}`}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => navigate("/beans/new")}
+            >
+              New
+            </button>
+          </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="method">Method</label>
+        <div className="form-group ">
+          <label htmlFor="method">Brewing method</label>
           <select
             className="form-control"
             id="method"
             value={method}
             onChange={(e) => setMethod(e.target.value)}
+            required
           >
+            <option value="" disabled>
+              Please pick a method
+            </option>
             <option value={"espresso"}>Espresso</option>
             <option value={"flatwhite"}>Flat white</option>
             <option value={"moka"}>Moka</option>
@@ -130,110 +150,89 @@ function BrewEditPage() {
             <option value={"frenchPress"}>French press</option>
             <option value={"pourOver"}>Pour over</option>
             <option value={"coldBrew"}>Cold Brew</option>
+            <option value={"coldBrew"}>Other</option>
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="grindInput">Grind setting</label>
-          <input
-            type="number"
-            className="form-control"
-            id="grindInput"
-            placeholder=""
-            value={grind}
-            onChange={(e) => setGrind(e.target.value)}
-          />
-        </div>
+        <div className="row g-2 my-2">
+          <div className="col-6">
+            <Form.Group controlId="coffeeG">
+              <Form.Label>Coffee weight(g)</Form.Label>
+              <Form.Control
+                type="number"
+                inputMode="decimal"
+                min="0"
+                max="2000"
+                step="0.1"
+                value={coffee_g}
+                onChange={(e) => setCoffee_g(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="coffee_gInput">Grind coffee amount</label>
-          <input
-            type="number"
-            className="form-control"
-            id="coffee_gInput"
-            placeholder="grams"
-            value={coffee_g}
-            onChange={(e) => setCoffee_g(e.target.value)}
-          />
-        </div>
+          <div className="col-6">
+            <Form.Group controlId="outputG">
+              <Form.Label>Output (g/ml)</Form.Label>
+              <Form.Control
+                type="number"
+                inputMode="decimal"
+                min="0"
+                step="0.1"
+                value={output_g}
+                onChange={(e) => setOutput_g(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="output_gInput">Coffee yield</label>
-          <input
-            type="number"
-            className="form-control"
-            id="output_gInput"
-            placeholder="mL of coffee you got from the process"
-            value={output_g}
-            onChange={(e) => setOutput_g(e.target.value)}
-          />
-        </div>
+          <div className="col-6">
+            <Form.Group controlId="timeS">
+              <Form.Label>Brew time</Form.Label>
+              <Form.Control
+                type="number"
+                inputMode="numeric"
+                min="0"
+                max="1000"
+                step="1"
+                value={time_s}
+                onChange={(e) => setTime_s(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="time_sInput">Brew time</label>
-          <input
-            type="number"
-            className="form-control"
-            id="time_sInput"
-            placeholder="seconds water touched the coffee"
-            value={time_s}
-            onChange={(e) => setTime_s(e.target.value)}
-          />
+          <div className="col-6">
+            <Form.Group controlId="tempC">
+              <Form.Label>Brew temp (°C)</Form.Label>
+              <Form.Control
+                type="number"
+                inputMode="numeric"
+                min="0"
+                max="100"
+                step="1"
+                value={temp_c}
+                onChange={(e) => setTemp_c(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </div>
         </div>
 
         <div className="form-group">
           <label>How good was this coffee?</label>
-          <div>
-            <input
-              type="radio"
-              id="rating_1"
-              name="rating"
-              value={1}
-              checked={rating === 1}
-              onChange={(e) => setRating(Number(e.target.value))}
-            />
-            <label htmlFor="rating_1"> ⭐ </label>
-
-            <input
-              type="radio"
-              id="rating_2"
-              name="rating"
-              value={2}
-              checked={rating === 2}
-              onChange={(e) => setRating(Number(e.target.value))}
-            />
-            <label htmlFor="rating_2"> ⭐ ⭐ </label>
-
-            <input
-              type="radio"
-              id="rating_3"
-              name="rating"
-              value={3}
-              checked={rating === 3}
-              onChange={(e) => setRating(Number(e.target.value))}
-            />
-            <label htmlFor="rating_3"> ⭐ ⭐ ⭐ </label>
-
-            <input
-              type="radio"
-              id="rating_4"
-              name="rating"
-              value={4}
-              checked={rating === 4}
-              onChange={(e) => setRating(Number(e.target.value))}
-            />
-            <label htmlFor="rating_4"> ⭐ ⭐ ⭐ ⭐ </label>
-
-            <input
-              type="radio"
-              id="rating_5"
-              name="rating"
-              value={5}
-              checked={rating === 5}
-              onChange={(e) => setRating(Number(e.target.value))}
-            />
-            <label htmlFor="rating_5"> ⭐ ⭐ ⭐ ⭐ ⭐ </label>
-          </div>
+          <select
+            className="form-control"
+            id="rating"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          >
+            <option value={"1"}>⭐</option>
+            <option value={"2"}>⭐ ⭐</option>
+            <option value={"3"}>⭐ ⭐ ⭐</option>
+            <option value={"4"}>⭐ ⭐ ⭐ ⭐</option>
+            <option value={"5"}>⭐ ⭐ ⭐ ⭐ ⭐</option>
+          </select>
         </div>
 
         <div className="mb-3">
@@ -241,7 +240,7 @@ function BrewEditPage() {
           <textarea
             className="form-control"
             id="tastingNotes"
-            placeholder=""
+            placeholder="e.g., stone fruit, chocolate, balanced acidity…"
             rows={5}
             value={tastingNotes}
             onChange={(e) => setTastingNotes(e.target.value)}
@@ -253,23 +252,27 @@ function BrewEditPage() {
             className="form-control"
             id="improvementNotes"
             rows={5}
-            placeholder="e.g., longer pre-infusion, coarser grind"
+            placeholder="eg finer grind, longer bloom, higher temp"
             value={improvementNotes}
             onChange={(e) => setImprovementNotes(e.target.value)}
           />
         </div>
 
-        <div className="form-group">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => navigate(-1)}
-          >
-            Discard changes
-          </button>
-          <button type="submit" className="btn btn-primary">
-            Save
-          </button>
+        <div className="row g-2">
+          <div className="col-6">
+            <button
+              type="button"
+              className="btn btn-outline-secondary w-100"
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </button>
+          </div>
+          <div className="col-6">
+            <button type="submit" className="btn btn-primary w-100">
+              Save Brew
+            </button>
+          </div>
         </div>
       </Form>
 
@@ -277,5 +280,6 @@ function BrewEditPage() {
     </>
   );
 }
+
 
 export default BrewEditPage;

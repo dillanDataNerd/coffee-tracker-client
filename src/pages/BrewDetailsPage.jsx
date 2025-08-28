@@ -25,6 +25,7 @@ const navigate=useNavigate()
       );
       setBrew(response.data);
       setPageLoaded(true);
+      console.log(brew)
     } catch (error) {
       console.log(error);
     }
