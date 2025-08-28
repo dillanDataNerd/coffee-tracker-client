@@ -1,32 +1,43 @@
+import { Link } from "react-router-dom";
 function CoffeeTimer({ brew }) {
-  console.log(brew);
+  console.log(brew[0]);
+  let timeSinceLastCoffee = (Date.now() - brew[0].createdAt) / 60000;
+  console.log(brew[0].createdAt);
+  console.log(timeSinceLastCoffee);
 
-  let timeSinceLastCoffee =
-    (Date.parse(brew[0].createdAt) - Date.now()) / 60000;
-
-  if (timeSinceLastCoffee < 3600) {
+  if (timeSinceLastCoffee < 60) {
     return (
-      <div>
-        <h1>{Math.floor(timeSinceLastCoffee)} minutes</h1>
-         <p>Since your last coffee</p>
+      <div className="coffee-header">
+        <div className="coffee-circle">
+          <h1>{Math.floor(timeSinceLastCoffee)}</h1>
+        </div>
+        <h3>Minutes since your last coffee</h3>
       </div>
     );
-} else if (timeSinceLastCoffee < 360000) {
+  } else if (timeSinceLastCoffee < 3600) {
     return (
-        <div>
-        <h1>{Math.floor(timeSinceLastCoffee / 60)} hours</h1>
-          <p>Since your last coffee</p>
+      <div className="coffee-header">
+        <div className="coffee-circle">
+        <h1>{Math.floor(timeSinceLastCoffee / 60)}</h1>
+        <p>Hours since your last coffee</p>
+      </div>
       </div>
     );
-} else if (timeSinceLastCoffee > 360000) {
+  } else if (timeSinceLastCoffee > 3600) {
     return (
-        <div>
-        <h1>{Math.floor(timeSinceLastCoffee / (60 * 24))} hours</h1>
-        <p>Since your last coffee</p>
+      <div className="coffee-header">
+        <div className="coffee-circle">
+        <h1>{Math.floor(timeSinceLastCoffee / (60 * 24))}</h1>
+        <p>Days since your last coffee</p>
+      </div>
       </div>
     );
   } else {
-    return (<div>Time for your first coffee</div>)
+    return (
+      <Link to="/brews/new">
+        <div className="coffee-circle">Time for your first coffee</div>
+      </Link>
+    );
   }
 }
 

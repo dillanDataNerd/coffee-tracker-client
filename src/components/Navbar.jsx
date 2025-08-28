@@ -6,8 +6,8 @@ import beanIcon from "../assets/nav-bean.svg";
 
 function Navbar() {
  return (
-    <nav>
-      <ul className="nav justify-content-end">
+    <nav className="navbar fixed-bottom justify-content-center">
+      <ul className="nav">
         <li className="nav-item">
           <Link to="/" className="nav-link">
             <img src={homeIcon} alt="home navigation logo" />

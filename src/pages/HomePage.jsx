@@ -10,16 +10,14 @@ import CoffeeTimer from "../components/CoffeeTimer";
 function HomePage() {
   const [brews, setBrews] = useState([]);
   const [pageLoaded, setPageLoaded] = useState(false);
+  const [now, setNow] = useState(Date.now());
+
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean`);
-      // get the latest 3 brews to show in the carosal
-      const sortedArray = [...response.data].sort(
-        (a, b) => b.createdAt - a.createdAt
-      );
-      const trimmedArray = sortedArray.slice(-3);
-      setBrews(trimmedArray);
+      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean&_sort=createdAt&_order=desc&_limit=4`);
+      console.log(response.data)
+      setBrews(response.data);
       setPageLoaded(true);
 
     } catch (error) {
@@ -29,6 +27,12 @@ function HomePage() {
 
   useEffect(() => {
     getData();
+
+    //force page to rerender every minute to update timer
+    const interval = setInterval(() => {
+      setNow(Date.now());  
+    }, 60000);    
+    return( () => clearInterval(interval))
   }, []);
 
 
@@ -43,7 +47,7 @@ function HomePage() {
 
   return (
     <>
-      <CoffeeTimer brew={brews.slice(-1)}/>
+      <CoffeeTimer brew={brews}/>
       <Carousel brews={brews}/>
       <Navbar />
     </>

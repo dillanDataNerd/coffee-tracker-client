@@ -13,37 +13,31 @@ function BrewCard({ method, tastingNotes, rating, bean, id, date }) {
   let alt = "default image of coffee";
 
   switch (method) {
-    case "frenchPress":
-      img = frenchpressImg; alt = "french press"; break;
-    case "moka":
-      img = mokaImg; alt = "moka"; break;
-    case "espresso":
-      img = espressoImg; alt = "espresso"; break;
-    case "aeropress":
-      img = aeropressImg; alt = "aeropress"; break;
-    case "coldBrew":
-      img = coldbrewImg; alt = "cold brew"; break;
-    case "pourOver":
-      img = pouroverImg; alt = "pour over"; break;
-    case "flatWhite":
-      img = flatwhiteImg; alt = "flat white"; break;
-    default:
-      break;
+    case "frenchPress": img = frenchpressImg; alt = "french press"; break;
+    case "moka":        img = mokaImg;       alt = "moka";          break;
+    case "espresso":    img = espressoImg;   alt = "espresso";      break;
+    case "aeropress":   img = aeropressImg;  alt = "aeropress";     break;
+    case "coldBrew":    img = coldbrewImg;   alt = "cold brew";     break;
+    case "pourOver":    img = pouroverImg;   alt = "pour over";     break;
+    case "flatWhite":   img = flatwhiteImg;  alt = "flat white";    break;
+    default: break;
   }
 
-  const dateString = new Date(date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", })
+  const dateString = new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric", month: "short", year: "numeric",
+  });
 
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card brew-card h-100">
       <img src={img} className="card-img-top" alt={alt} />
       <div className="card-body">
-        <Link to={`/brews/${id}`}>
-          <h5 className="card-title">{bean ?? "Unknown bean"}</h5>
+        <Link to={`/brews/${id}`} className="text-decoration-none">
+          <h5 className="card-title mb-2">{bean ?? "Unknown bean"}</h5>
         </Link>
-        <h5>Rating: {rating ?? "—"}</h5>
-        <p className="card-text">{tastingNotes ?? ""}</p>
-        <div className="card-footer text-body-secondary">{dateString}</div>
+        <h6 className="mb-2">Rating: {rating ?? "—"}</h6>
+        <p className="card-text mb-0">{tastingNotes ?? ""}</p>
       </div>
+      <div className="card-footer text-body-secondary">{dateString}</div>
     </div>
   );
 }

@@ -2,18 +2,23 @@ import { Link } from "react-router-dom";
 
 function BeanCard({ id, name, roaster, origin, notes, image }) {
   return (
-    <>
-      <div className="card" style={{ width: "18rem" }}>
-        <img src={image} className="card-img-top" alt={"image of roaster"} />
-        <div className="card-body">
-          <Link to={`/beans/${id}`}>
-            <h4 className="card-title">{name}</h4>
-          </Link>
-          <h6>{roaster}</h6>
-          <p className="card-text">{notes}</p>
-        </div>
+    <div className="card bean-card h-100">
+      <img
+        src={image}
+        className="card-img-top"
+        alt={`Image of ${roaster ?? "roaster"}`}
+      />
+      <div className="card-body d-flex flex-column">
+        <Link to={`/beans/${id}`} className="text-decoration-none">
+          <h5 className="card-title mb-2">{name ?? "Unknown bean"}</h5>
+        </Link>
+        <h6 className="mb-2 text-muted">{roaster ?? "Unknown roaster"}</h6>
+        <p className="card-text flex-grow-1">{notes ?? ""}</p>
       </div>
-    </>
+      <div className="card-footer text-body-secondary">
+        {origin ?? "Origin unknown"}
+      </div>
+    </div>
   );
 }
 export default BeanCard;

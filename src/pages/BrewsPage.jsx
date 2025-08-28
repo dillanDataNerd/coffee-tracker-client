@@ -46,20 +46,21 @@ function BrewsPage() {
 
   return (
     <>
-      <div className="d-flex gap-2">
-        <div className="flex-fill w-50">
-          <FilterByBean
-            beanToFilter={beanToFilter}
-            setBeanToFilter={setBeanToFilter}
-          />
+    <h1>Brews</h1>
+        <div className="d-flex gap-2 buttons-bar">
+          <div className="flex-fill w-50">
+            <FilterByBean
+              beanToFilter={beanToFilter}
+              setBeanToFilter={setBeanToFilter}
+            />
+          </div>
+          <div className="flex-fill w-50">
+            <FilterByMethod
+              methodToFilter={methodToFilter}
+              setMethodToFilter={setMethodToFilter}
+            />
+          </div>
         </div>
-        <div className="flex-fill w-50">
-          <FilterByMethod
-            methodToFilter={methodToFilter}
-            setMethodToFilter={setMethodToFilter}
-          />
-        </div>
-      </div>
 
       {brews.map((eachBrew) => {
         return (

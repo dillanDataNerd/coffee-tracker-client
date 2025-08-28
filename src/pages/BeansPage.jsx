@@ -42,6 +42,7 @@ function BeansPage() {
 
   return (
     <>
+    <h1>Beans</h1>
       {beans.map((eachBean) => {
         return (
           <BeanCard
