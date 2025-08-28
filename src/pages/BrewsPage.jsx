@@ -4,16 +4,23 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import LoadingCard from "../components/LoadingCard";
 import BrewCard from "../components/BrewCard";
+import FilterByBean from "../components/FilterByBean";
+import FilterByMethod from "../components/FilterByMethod";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 function BrewsPage() {
   const [brews, setBrews] = useState([]);
   const [pageLoaded, setPageLoaded] = useState(false);
+  const [beanToFilter, setBeanToFilter] = useState("");
+  const [methodToFilter, setMethodToFilter] = useState("");
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean`);
-      console.log(response.data);
+      const url = `${SERVER_URL}/brews?_expand=bean&_sort=createdAt&_order=desc
+      ${beanToFilter ? `&beanId=${beanToFilter}` : ""}
+        ${methodToFilter ? `&method=${methodToFilter}` : ""}`;
+      const response = await axios.get(url);
+
       setBrews(response.data);
       setPageLoaded(true);
     } catch (error) {
@@ -22,9 +29,9 @@ function BrewsPage() {
   };
 
   useEffect(() => {
+    setPageLoaded(false);
     getData();
-    console.log("loaded");
-  }, []);
+  }, [beanToFilter, methodToFilter]);
 
   if (!pageLoaded) {
     return (
@@ -39,6 +46,21 @@ function BrewsPage() {
 
   return (
     <>
+      <div className="d-flex gap-2">
+        <div className="flex-fill w-50">
+          <FilterByBean
+            beanToFilter={beanToFilter}
+            setBeanToFilter={setBeanToFilter}
+          />
+        </div>
+        <div className="flex-fill w-50">
+          <FilterByMethod
+            methodToFilter={methodToFilter}
+            setMethodToFilter={setMethodToFilter}
+          />
+        </div>
+      </div>
+
       {brews.map((eachBrew) => {
         return (
           <BrewCard

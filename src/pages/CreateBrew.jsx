@@ -48,7 +48,7 @@ function CreateBrew() {
     console.log(params)
     // If the user is recreating a brew, get details of that brew and pre-set paramaters
     if (params.brewId) {
-      console.log("fetching prev data")
+      console.log("fetching prev brew data")
       getData()
     }
 
