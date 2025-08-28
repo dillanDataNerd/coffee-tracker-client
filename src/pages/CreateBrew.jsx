@@ -6,16 +6,16 @@ import axios from "axios";
 import { useEffect } from "react";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-
 function CreateBrew() {
   const navigate = useNavigate();
 
-  const [bean, setBean] = useState("");
+  const [beanId, setBeanId] = useState("");
   const [method, setMethod] = useState("Espresso");
   const [grind, setGrind] = useState(""); // keep as string so empty is allowed
   const [coffee_g, setCoffee_g] = useState(""); // same here; convert on submit
   const [output_g, setOutput_g] = useState("");
   const [time_s, setTime_s] = useState("");
+  const [temp_c,setTemp_c] = useState("")
   const [rating, setRating] = useState(0);
   const [tastingNotes, setTastingNotes] = useState("");
   const [improvementNotes, setImprovementNotes] = useState("");
@@ -28,7 +28,11 @@ function CreateBrew() {
       .get(`${SERVER_URL}/beans`)
       .then((response) => {
         response.data.map((eachBean) => {
-          beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
+          beanList.push({
+            id: eachBean.id,
+            roaster: eachBean.roaster,
+            name: eachBean.name,
+          });
         });
         setAllBeans(beanList);
       })
@@ -41,23 +45,24 @@ function CreateBrew() {
     e.preventDefault(); // stop full page reload
     // Convert number fields to numbers (NaN-safe) at submission time
     const newBrew = {
-      bean,
+      beanId,
       method,
       grind,
       coffee_g,
       output_g,
       time_s,
+      temp_c,
       rating,
       tastingNotes,
       improvementNotes,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
 
     axios
       .post(`${SERVER_URL}/brews/`, newBrew)
       .then(() => {
         console.log("brew submission successful");
-        navigate(-1)
+        navigate(-1);
       })
       .catch((error) => {
         console.log(error);
@@ -67,27 +72,39 @@ function CreateBrew() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="beanInput">Bean</label>
-          <select
-            className="form-control"
-            id="beanInput"
-            placeholder="bean"
-            value={bean}
-            onChange={(e) => setBean(e.target.value)}
-          >
-            <option value="" disabled >Choose a bean</option>
-            {allBeans.map((eachBean) => {
-              return(
-              <option
-                key={eachBean.id}
-                value={eachBean.id}
-              >{`${eachBean.roaster} - ${eachBean.name}`}</option>);
-            })}
-          </select>
+        <div className="mb-3">
+          <label htmlFor="beanIdInput" className="form-label">
+            Bean
+          </label>
+
+          <div className="input-group">
+            <select
+              className="form-select" // use form-select for <select> in BS5
+              id="beanIdInput"
+              value={beanId}
+              onChange={(e) => setBeanId(e.target.value)}
+            >
+              <option value="" disabled>
+                Choose a bean
+              </option>
+              {allBeans.map((eachBean) => (
+                <option key={eachBean.id} value={eachBean.id}>
+                  {`${eachBean.roaster} - ${eachBean.name}`}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={() => navigate("/beans/new")}
+            >
+              +
+            </button>
+          </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group ">
           <label htmlFor="method">Method</label>
           <select
             className="form-control"
@@ -150,6 +167,17 @@ function CreateBrew() {
             placeholder="seconds water touched the coffee"
             value={time_s}
             onChange={(e) => setTime_s(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="temp_cInput">Brew temp</label>
+          <input
+            type="number"
+            className="form-control"
+            id="temp_cInput"
+            placeholder="brew water temperature"
+            value={temp_c}
+            onChange={(e) => setTemp_c(e.target.value)}
           />
         </div>
 

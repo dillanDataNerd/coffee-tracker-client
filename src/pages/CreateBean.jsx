@@ -36,7 +36,7 @@ function CreateBean() {
       .post(`${SERVER_URL}/beans/`, newBean)
       .then(() => {
         console.log("bean submission successful");
-        navigate("/beans")
+        navigate(-1)
       })
       .catch((error) => {
         console.log(error);

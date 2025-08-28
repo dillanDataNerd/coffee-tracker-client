@@ -6,26 +6,23 @@ import axios from "axios";
 import { useEffect } from "react";
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-
 function BrewEditPage() {
-      const navigate = useNavigate();
-      const params=useParams()
+  const navigate = useNavigate();
+  const params = useParams();
 
-      const [id,setId]=useState("")
+  const [id, setId] = useState("");
   const [beanId, setBeanId] = useState("");
   const [method, setMethod] = useState("");
-  const [grind, setGrind] = useState(""); // keep as string so empty is allowed
-  const [coffee_g, setCoffee_g] = useState(""); // same here; convert on submit
+  const [grind, setGrind] = useState(""); 
+  const [coffee_g, setCoffee_g] = useState(""); 
   const [output_g, setOutput_g] = useState("");
   const [time_s, setTime_s] = useState("");
   const [rating, setRating] = useState(0);
   const [tastingNotes, setTastingNotes] = useState("");
   const [improvementNotes, setImprovementNotes] = useState("");
-    const [allBeans, setAllBeans] = useState([]);
-
+  const [allBeans, setAllBeans] = useState([]);
 
   useEffect(() => {
-
     // get value of all beans
     let beanList = [];
 
@@ -33,7 +30,11 @@ function BrewEditPage() {
       .get(`${SERVER_URL}/beans`)
       .then((response) => {
         response.data.map((eachBean) => {
-          beanList.push({ id:eachBean.id, roaster: eachBean.roaster, name: eachBean.name });
+          beanList.push({
+            id: eachBean.id,
+            roaster: eachBean.roaster,
+            name: eachBean.name,
+          });
         });
         setAllBeans(beanList);
       })
@@ -45,18 +46,18 @@ function BrewEditPage() {
     axios
       .get(`${SERVER_URL}/brews/${params.brewId}`)
       .then((response) => {
-        let brew=response.data
-        setId(brew.id)
+        let brew = response.data;
+        setId(brew.id);
         setBeanId(brew.beanId);
-        setMethod(brew.method)
-        setGrind(brew.grind)
-        setCoffee_g(brew.coffee_g)
-        setOutput_g(brew.output_g)
-        setTime_s(brew.time_s)
-        setRating(brew.rating)
-        setTastingNotes(brew.tastingNotes)
-        setImprovementNotes(brew.improvementNotes)
-        })
+        setMethod(brew.method);
+        setGrind(brew.grind);
+        setCoffee_g(brew.coffee_g);
+        setOutput_g(brew.output_g);
+        setTime_s(brew.time_s);
+        setRating(brew.rating);
+        setTastingNotes(brew.tastingNotes);
+        setImprovementNotes(brew.improvementNotes);
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -64,7 +65,6 @@ function BrewEditPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // stop full page reload
-    // Convert number fields to numbers (NaN-safe) at submission time
     const updateBrew = {
       beanId,
       method,
@@ -75,21 +75,21 @@ function BrewEditPage() {
       rating,
       tastingNotes,
       improvementNotes,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
 
     axios
       .patch(`${SERVER_URL}/brews/${id}`, updateBrew)
       .then(() => {
         console.log("brew edit successful");
-        navigate(-1)
+        navigate(-1);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-    
-return (
+
+  return (
     <>
       <Form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -101,13 +101,16 @@ return (
             value={beanId}
             onChange={(e) => setBeanId(e.target.value)}
           >
-            <option value="" disabled >Choose a bean</option>
+            <option value="" disabled>
+              Choose a bean
+            </option>
             {allBeans.map((eachBean) => {
-              return(
-              <option
-                key={eachBean.id}
-                value={eachBean.id}
-              >{`${eachBean.roaster} - ${eachBean.name}`}</option>);
+              return (
+                <option
+                  key={eachBean.id}
+                  value={eachBean.id}
+                >{`${eachBean.roaster} - ${eachBean.name}`}</option>
+              );
             })}
           </select>
         </div>
