@@ -1,13 +1,6 @@
-import { useState } from "react";
-import frenchpressImg from "../assets/frenchpress.webp";
-import mokaImg from "../assets/moka.jpg";
-import espressoImg from "../assets/espresso.jpeg";
-import aeropressImg from "../assets/aeropress.jpg";
-import coldbrewImg from "../assets/coldbrew.webp";
-import pouroverImg from "../assets/pourover.jpg";
-import flatwhiteImg from "../assets/flatwhite.jpg";
-import defaultImg from "../assets/nav-brew.svg";
+import { Accordion, ListGroup, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 
 function BrewRecipeCard({
   method,
@@ -22,68 +15,43 @@ function BrewRecipeCard({
   time_s,
   improvementNotes,
 }) {
-  let img = defaultImg;
-  let alt = "default image of coffee";
 
-  switch (method) {
-    case "frenchPress":
-      img = frenchpressImg;
-      alt = "frenchress";
-      break;
-    case "moka":
-      img = mokaImg;
-      alt = "moka";
-      break;
-    case "espresso":
-      img = espressoImg;
-      alt = "espresso";
-      break;
-    case "aeropress":
-      img = aeropressImg;
-      alt = "aeropress";
-      break;
-    case "coldBrew":
-      img = coldbrewImg;
-      alt = "coldbrew";
-      break;
-    case "pourOver":
-      img = pouroverImg;
-      alt = "pourover";
-      break;
-    case "flatWhite":
-      img = flatwhiteImg;
-      alt = "flatwhite";
-      break;
-    default:
-      break;
-  }
+return (
+    <Accordion className="mb-3 shadow-sm" defaultActiveKey="">
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>
+          <div className="d-flex justify-content-between align-items-center w-100">
+            <span className="h6 mb-0"><Link to={`/brews/${id}`} >
+{method}</Link> {rating == 1 ? "⭐" : rating == 2 ? "⭐⭐" : rating == 3 ? "⭐⭐⭐" : rating == 4 ? "⭐⭐⭐⭐" : rating == 5 ? "⭐⭐⭐⭐⭐" : "No rating"}</span>            
+          </div>
+        </Accordion.Header>
 
-  return (
-    <>
-      <div className="card" style={{ width: "18rem" }}>
-        <img src={img} className="card-img-top" alt={alt} />
-        <div className="card-body">
-          <Link to={`/brews/${id}`}>
-            {<h5 className="card-title">{method}</h5>}
-          </Link>
-          <h5>Rating: {rating}</h5>
-          <p>Grind amount: {coffee_g}</p>
-          <p>Grind setting: {grind}</p>
-          <p>Brewing Temp: {temp_c}</p>
-          <p>Brewing Time: {time_s}</p>
-          <p>Yield: {output_g}</p>
-          <p className="card-text">{tastingNotes}</p>
-          <p className="card-text">{improvementNotes}</p>
-          <div className="card-footer text-body-secondary">
+        <Accordion.Body className="p-0">
+          <ListGroup variant="flush">
+            <ListGroup.Item><strong>Grind amount:</strong> {coffee_g} g</ListGroup.Item>
+            <ListGroup.Item><strong>Grind setting:</strong> {grind}</ListGroup.Item>
+            <ListGroup.Item><strong>Temperature:</strong> {temp_c} °C</ListGroup.Item>
+            <ListGroup.Item><strong>Brew time:</strong> {time_s} s</ListGroup.Item>
+            <ListGroup.Item><strong>Yield:</strong> {output_g} g</ListGroup.Item>
+            {tastingNotes && (
+              <ListGroup.Item><strong>Tasting notes:</strong> {tastingNotes}</ListGroup.Item>
+            )}
+            {improvementNotes && (
+              <ListGroup.Item><strong>Next time:</strong> {improvementNotes}</ListGroup.Item>
+            )}
+          </ListGroup>
+
+          <Card.Footer className="text-body-secondary">
             {new Date(date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "short",
               year: "numeric",
             })}
-          </div>
-        </div>
-      </div>
-    </>
+          </Card.Footer>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
   );
 }
+
 export default BrewRecipeCard;

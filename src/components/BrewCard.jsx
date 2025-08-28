@@ -56,11 +56,7 @@ function BrewCard({ method, tastingNotes, rating, bean, id, date }) {
       <img src={img} className="card-img-top" alt={alt} />
       <div className="card-body">
         <Link to={`/brews/${id}`} className="text-decoration-none">
-          <h5 className="card-title mb-2">{bean}</h5>
-        </Link>
-        <h6 className="mb-2">
-          Rating:
-          {rating == 1
+          <h5 className="card-title mb-2 d-flex justify-content-between align-items-center"><span>{bean}</span> <span>{rating == 1
             ? "⭐"
             : rating == 2
             ? "⭐⭐"
@@ -70,8 +66,9 @@ function BrewCard({ method, tastingNotes, rating, bean, id, date }) {
             ? "⭐⭐⭐⭐"
             : rating == 5
             ? "⭐⭐⭐⭐⭐"
-            : "No rating"}
-        </h6>
+            : "No rating"}</span></h5>
+        </Link>
+
         <p className="card-text mb-0">{tastingNotes ?? ""}</p>
       </div>
       <div className="card-footer text-body-secondary">{dateString}</div>
