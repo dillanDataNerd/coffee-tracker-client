@@ -1,11 +1,10 @@
 import { Form } from "react-bootstrap";
 import Navbar from "../components/Navbar";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-
 
 function CreateBean() {
   const navigate = useNavigate();
@@ -13,24 +12,22 @@ function CreateBean() {
   const [name, setName] = useState("");
   const [roaster, setRoaster] = useState("");
   const [origin, setOrigin] = useState("");
-  const [process, setProcess] = useState("washed");      
-  const [roastLevel, setRoastLevel] = useState("light"); 
+  const [process, setProcess] = useState("");
+  const [roastLevel, setRoastLevel] = useState("");
   const [notes, setNotes] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
-  
-
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const newBean = {
-      name: name,
-      roaster: roaster,
-      origin: origin,
-      process,                 
-      roastLevel,              
-      notes: notes,
-      imageUrl: imageUrl, 
+      name,
+      roaster,
+      origin,
+      process,
+      roastLevel,
+      notes,
+      imageUrl,
       createdAt: Date.now(),
     };
 
@@ -38,15 +35,15 @@ function CreateBean() {
       .post(`${SERVER_URL}/beans/`, newBean)
       .then(() => {
         console.log("bean submission successful");
-        navigate(-1)
+        navigate(-1);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error));
   };
 
   return (
-        <>
+    <>
+      <h1>Add a new bean</h1>
+
       <Form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="nameInput">Name</label>
@@ -54,7 +51,7 @@ function CreateBean() {
             id="nameInput"
             className="form-control"
             type="text"
-            placeholder="Bean name on the bag"
+            placeholder="Funky monkey"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -67,7 +64,7 @@ function CreateBean() {
             id="roasterInput"
             className="form-control"
             type="text"
-            placeholder="Roastery name"
+            placeholder="Blue bottle"
             value={roaster}
             onChange={(e) => setRoaster(e.target.value)}
             required
@@ -75,45 +72,73 @@ function CreateBean() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="originInput">Origin</label>
-          <input
-            id="originInput"
+          <label htmlFor="originSelect">Origin</label>
+          <select
+            id="originSelect"
             className="form-control"
-            type="text"
-            placeholder="e.g., Ethiopia, Colombia"
             value={origin}
             onChange={(e) => setOrigin(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="processSelect">Process</label>
-          <select
-            id="processSelect"
-            className="form-control"
-            value={process}
-            onChange={(e) => setProcess(e.target.value)}
+            required
           >
-            <option value="washed">Washed</option>
-            <option value="natural">Natural</option>
-            <option value="honey">Honey</option>
-            <option value="anaerobic">Anaerobic</option>
-            <option value="other">Other</option>
+            <option value="" disabled>
+              Select a country
+            </option>
+            <option value="Brazil">Brazil</option>
+            <option value="Burundi">Burundi</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Costa Rica">Costa Rica</option>
+            <option value="El Salvador">El Salvador</option>
+            <option value="Ethiopia">Ethiopia</option>
+            <option value="Guatemala">Guatemala</option>
+            <option value="Honduras">Honduras</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Nicaragua">Nicaragua</option>
+            <option value="Panama">Panama</option>
+            <option value="Peru">Peru</option>
+            <option value="Rwanda">Rwanda</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Yemen">Yemen</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="roastLevelSelect">Roast level</label>
-          <select
-            id="roastLevelSelect"
-            className="form-control"
-            value={roastLevel}
-            onChange={(e) => setRoastLevel(e.target.value)}
-          >
-            <option value="light">Light</option>
-            <option value="medium">Medium</option>
-            <option value="dark">Dark</option>
-          </select>
+        <div className="row g-2 my-2">
+          <div className="col-6">
+            <Form.Group controlId="processSelect">
+              <Form.Label>Process</Form.Label>
+              <Form.Select
+                value={process}
+                onChange={(e) => setProcess(e.target.value)}
+              >
+                <option value="" disabled>
+                  Pick a process
+                </option>
+
+                <option value="washed">Washed</option>
+                <option value="natural">Natural</option>
+                <option value="honey">Honey</option>
+                <option value="anaerobic">Anaerobic</option>
+                <option value="other">Other</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+
+          <div className="col-6">
+            <Form.Group controlId="roastLevelSelect">
+              <Form.Label>Roast level</Form.Label>
+              <Form.Select
+                value={roastLevel}
+                onChange={(e) => setRoastLevel(e.target.value)}
+              >
+                <option value="" disabled>
+                  Pick a roast
+                </option>
+                <option value="light">Light</option>
+                <option value="medium">Medium</option>
+                <option value="dark">Dark</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
         </div>
 
         <div className="mb-3">
@@ -121,8 +146,8 @@ function CreateBean() {
           <textarea
             id="notesInput"
             className="form-control"
-            rows={4}
-            placeholder="Freeform notes about the bean"
+            rows={5}
+            placeholder="eg tasting notes stone fruit, caramel and blueberries"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
@@ -134,23 +159,27 @@ function CreateBean() {
             id="imageUrlInput"
             className="form-control"
             type="url"
-            placeholder="https://example.com/bag.jpg"
+            placeholder="https://..."
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
           />
         </div>
 
-        <div className="form-group" style={{ marginTop: 12 }}>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => navigate(-1)}
-          >
-            Back
-          </button>{" "}
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+        <div className="row g-2" style={{ marginTop: 12 }}>
+          <div className="col-6">
+            <button
+              type="button"
+              className="btn btn-outline-secondary w-100"
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </button>
+          </div>
+          <div className="col-6">
+            <button type="submit" className="btn btn-primary w-100">
+              Save Bean
+            </button>
+          </div>
         </div>
       </Form>
 

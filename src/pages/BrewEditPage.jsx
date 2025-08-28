@@ -47,7 +47,7 @@ function BrewEditPage() {
       .get(`${SERVER_URL}/brews/${params.brewId}`)
       .then((response) => {
         let brew = response.data;
-        setId(brew.id);
+        setId(params.brewId);
         setBeanId(brew.beanId);
         setMethod(brew.method);
         setGrind(brew.grind);

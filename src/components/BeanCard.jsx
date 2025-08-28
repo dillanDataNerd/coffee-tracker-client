@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 
 function BeanCard({ id, name, roaster, origin, notes, image }) {
+
   return (
     <div className="card bean-card h-100">
       <img
-        src={image}
+        src={image ? image : "/default-beans.jpg" }
         className="card-img-top"
         alt={`Image of ${roaster ?? "roaster"}`}
       />
