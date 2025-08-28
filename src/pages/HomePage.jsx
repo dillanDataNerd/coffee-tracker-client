@@ -5,6 +5,7 @@ const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 import { useEffect, useState } from "react";
 import LoadingCard from "../components/LoadingCard";
 import Carousel from "../components/BrewCarousel"
+import CoffeeTimer from "../components/CoffeeTimer";
 
 function HomePage() {
   const [brews, setBrews] = useState([]);
@@ -47,6 +48,7 @@ function HomePage() {
   return (
     <>
       <h2>HomePage</h2>
+      <CoffeeTimer brew={brews.slice(-1)}/>
 
       <Carousel brews={brews}/>
       <Navbar />
