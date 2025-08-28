@@ -15,10 +15,8 @@ function BrewCarousel({
 }) {
   if (!brews.length) return null;
 
-  // Sort newest first; handles number or string timestamps
-  const slides = [...brews].sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
+  const slides = [...brews]
+  console.log(brews)
 
   return (
     <Carousel
@@ -32,14 +30,13 @@ function BrewCarousel({
     >
       {slides.map((brew) => (
         <Carousel.Item key={brew.id}>
-          {/* Put anything you like inside a slide */}
           <div className="d-flex justify-content-center p-3">
             <BrewCard
               id={brew.id}
               method={brew.method}
               tastingNotes={brew.tastingNotes}
               rating={brew.rating}
-              bean={brew.bean?.name}
+              bean={brew.bean.name}
               date={brew.createdAt}
               imageUrl={brew.bean?.imageUrl}
             />

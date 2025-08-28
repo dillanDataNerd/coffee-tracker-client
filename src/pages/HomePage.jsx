@@ -13,8 +13,7 @@ function HomePage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}/brews`);
-
+      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean`);
       // get the latest 3 brews to show in the carosal
       const sortedArray = [...response.data].sort(
         (a, b) => b.createdAt - a.createdAt
@@ -32,9 +31,6 @@ function HomePage() {
     getData();
   }, []);
 
-  // Show a timer with the last time you had a coffee and have it on a timer
-  // Make a count of coffees you make this week
-  // make a carousal of coffees from this week
 
   if (!pageLoaded) {
     return (
@@ -47,9 +43,7 @@ function HomePage() {
 
   return (
     <>
-      <h2>HomePage</h2>
       <CoffeeTimer brew={brews.slice(-1)}/>
-
       <Carousel brews={brews}/>
       <Navbar />
     </>
