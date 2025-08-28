@@ -1,6 +1,5 @@
-/* Global layout */
 body {
-  background-color: #f8f9fa; /* light gray background */
+  background-color: #f8f9fa; 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   color: #212529;
@@ -9,14 +8,12 @@ body {
   padding: 80px;
 }
 
-/* capped at a normal phone width */
 #root {
-  max-width: 375px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 1rem 1rem 2rem;
 }
 
-/* Headings */
 h1,
 h2,
 h3 {
@@ -171,4 +168,12 @@ h3 {
 .coffee-header:hover .coffee-subtitle {
   opacity: 1;
   transform: translateY(-1px);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;         /* wider hit area */
+  height: 80px;      /* taller button */
+  top: 50%;          /* vertically center */
+  transform: translateY(140%);
 }

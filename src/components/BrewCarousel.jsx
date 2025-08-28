@@ -1,14 +1,9 @@
-// BrewCarousel.jsx
 import Carousel from "react-bootstrap/Carousel";
 import BrewCard from "./BrewCard";
 import { Link } from "react-router-dom";
 
-// Ensure you have Bootstrap CSS once in your app entry file (e.g., main.jsx):
-// import "bootstrap/dist/css/bootstrap.min.css";
-
 function BrewCarousel({
   brews = [],
-  autoPlay = true,
   interval = 5000,
   wrap = true,
   controls = true,
@@ -23,7 +18,7 @@ function BrewCarousel({
     <Carousel
       controls={controls}
       indicators={indicators}
-      interval={autoPlay ? interval : null} // null disables auto cycle
+      interval={interval}
       wrap={wrap}
       touch
       pause="hover"
