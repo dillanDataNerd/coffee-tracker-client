@@ -1,19 +1,31 @@
-import { Link } from "react-router-dom"
-import { Button } from "react-bootstrap"
-import Navbar from "../components/Navbar"
-
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import Navbar from "../components/Navbar";
 
 function ErrorPage() {
   return (
     <>
+      <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center">
+        <div className="display-4 fw-bold text-primary mb-2">404</div>
+        <p className="text-muted mb-4">
+          The page you’re looking for doesn’t exist or may have been moved.
+        </p>
 
-    <h1>404</h1>
-    <img src="/error-page.gif" alt="404 error image" />
-    <h3> This page you are trying to access doesn't exist anymore or has been moved </h3>
-    <Link to={"/"}><Button>Go to Home</Button></Link>
+        <img
+          src="/error-page.gif"
+          alt="404 error message fry shaking"
+          className="img-fluid mb-4 rounded-3"
+          style={{ maxHeight: 260, objectFit: "cover" }}
+        />
 
-    <Navbar/>
-  </>
-  )
+        <Link to="/">
+          <Button variant="primary">Go Home</Button>
+        </Link>
+      </div>
+
+      <Navbar />
+    </>
+  );
 }
-export default ErrorPage
+
+export default ErrorPage;
