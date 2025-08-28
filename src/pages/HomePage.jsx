@@ -15,7 +15,7 @@ function HomePage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean&_sort=createdAt&_order=desc&_limit=4`);
+      const response = await axios.get(`${SERVER_URL}/brews?_expand=bean&_sort=createdAt&_order=desc&_limit=5`);
       console.log(response.data)
       setBrews(response.data);
       setPageLoaded(true);
@@ -33,7 +33,7 @@ function HomePage() {
       setNow(Date.now());  
     }, 60000);    
     return( () => clearInterval(interval))
-  }, []);
+  }, [now]);
 
 
   if (!pageLoaded) {
