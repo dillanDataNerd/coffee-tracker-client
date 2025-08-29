@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 import { useParams } from "react-router-dom";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
 
 function CreateBrew() {
   const navigate = useNavigate();
-
   const [beanId, setBeanId] = useState("");
   const [method, setMethod] = useState("");
   const [grind, setGrind] = useState("");
@@ -43,10 +43,8 @@ function CreateBrew() {
         console.log(error);
       });
 
-    console.log(params);
-    // If the user is recreating a brew, get details of that brew and pre-set paramaters
+    // If the user is recreating a brew, get details of that brew and pre-set state accordingly
     if (params.brewId) {
-      console.log("fetching prev brew data");
       getData();
     }
   }, []);
@@ -64,14 +62,18 @@ function CreateBrew() {
       setOutput_g(previousSettings.output_g);
       setTime_s(previousSettings.time_s);
       setTemp_c(previousSettings.temp_c);
+      setRating(previousSettings.rating);
       setTastingNotes(previousSettings.tastingNotes);
       setImprovementNotes(previousSettings.improvementNotes);
     } catch (error) {
       console.log(error);
     }
   };
+  
+  // push newest brew
   const handleSubmit = (e) => {
-    e.preventDefault(); // stop full page reload
+    e.preventDefault(); 
+
     const newBrew = {
       beanId,
       method,
@@ -89,7 +91,6 @@ function CreateBrew() {
     axios
       .post(`${SERVER_URL}/brews/`, newBrew)
       .then(() => {
-        console.log("brew submission successful");
         navigate(-1);
       })
       .catch((error) => {
@@ -101,6 +102,7 @@ function CreateBrew() {
     <>
       <h1>Log your brew</h1>
       <Form onSubmit={handleSubmit}>
+
         <div className="mb-3">
           <label htmlFor="beanIdInput" className="form-label">
             Beans
@@ -153,7 +155,7 @@ function CreateBrew() {
             <option value={"frenchPress"}>French press</option>
             <option value={"pourOver"}>Pour over</option>
             <option value={"coldBrew"}>Cold Brew</option>
-            <option value={"coldBrew"}>Other</option>
+            <option value={"other"}>Other</option>
           </select>
         </div>
 

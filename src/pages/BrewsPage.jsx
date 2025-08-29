@@ -14,6 +14,8 @@ function BrewsPage() {
   const [beanToFilter, setBeanToFilter] = useState("");
   const [methodToFilter, setMethodToFilter] = useState("");
 
+
+  // call the backend when the page loads for all brews. Update the query based on the users filters and rerender based on the new data
   const getData = async () => {
     try {
       const url = `${SERVER_URL}/brews?_expand=bean&_sort=createdAt&_order=desc

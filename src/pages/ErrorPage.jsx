@@ -7,10 +7,7 @@ function ErrorPage() {
     <>
       <div className="min-vh-100 d-flex flex-column align-items-center justify-content-center text-center">
         <div className="display-4 fw-bold text-primary mb-2">404</div>
-        <p className="text-muted mb-4">
-          The page you’re looking for doesn’t exist or may have been moved.
-        </p>
-
+        <p className="text-muted mb-4">The page you’re looking for doesn’t exist or may have been moved.</p>
         <img
           src="/error-page.gif"
           alt="404 error message fry shaking"

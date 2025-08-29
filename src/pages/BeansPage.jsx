@@ -15,6 +15,9 @@ function BeansPage() {
   const [originToFilter, setOriginToFilter] = useState("");
   const [roasteryToFilter, setRoasteryToFilter] = useState("");
 
+
+    // call the backend when the page loads for all beans. Update the query based on the users filters and rerender based on the new data
+
   const getData = async () => {
     try {
       const response =

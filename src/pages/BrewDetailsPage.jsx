@@ -18,9 +18,7 @@ function BrewDetailsPage() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(
-          `${SERVER_URL}/brews/${params.brewId}?_expand=bean`
-        );
+        const response = await axios.get(`${SERVER_URL}/brews/${params.brewId}?_expand=bean`);
         setBrew(response.data);
         setPageLoaded(true);
       } catch (error) {
