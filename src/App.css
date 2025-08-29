@@ -5,7 +5,7 @@ body {
   color: #212529;
   line-height: 1.5;
   text-align: center;
-  padding: 10px;
+  padding: 10px 10px 60px 10px;
 }
 
 #root {
@@ -15,7 +15,7 @@ body {
 }
 
 h1,
-h2,
+h2,åå
 h3 {
   font-weight: 600;
   color: #343a40;
@@ -47,6 +47,10 @@ h3 {
   width: 40px;
   object-fit: cover;
   margin: 0;
+}
+
+.nav-link.active img {
+  filter: brightness(0) invert(40%) sepia(100%) saturate(300%) hue-rotate(190deg);
 }
 
 .card {

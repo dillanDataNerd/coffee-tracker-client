@@ -1,32 +1,55 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import homeIcon from "../assets/nav-home.svg";
 import plusIcon from "../assets/nav-plus.svg";
 import brewIcon from "../assets/nav-brew.svg";
 import beanIcon from "../assets/nav-bean.svg";
 
 function Navbar() {
- return (
+  return (
     <nav className="navbar fixed-bottom justify-content-center">
       <ul className="nav">
         <li className="nav-item">
-          <Link to="/" className="nav-link">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+          >
             <img src={homeIcon} alt="home navigation logo" />
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/brews/new" className="nav-link">
+          <NavLink
+            to="/brews/new"
+            end
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+          >
             <img src={plusIcon} alt="create brew logo" />
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/brews" className="nav-link">
+          <NavLink
+            to="/brews"
+            end
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+          >
             <img src={brewIcon} alt="brews navigation logo" />
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link to="/beans" className="nav-link">
+          <NavLink
+            to="/beans"
+            end
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+          >
             <img src={beanIcon} alt="beans navigation logo" />
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

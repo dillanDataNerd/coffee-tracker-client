@@ -39,7 +39,7 @@ function HomePage() {
   if (!pageLoaded) {
     return (
       <>
-      <h1>Waiting for the server to boot up</h1>
+      <h1 className="warning">Waiting for the server to boot up</h1>
         <LoadingCard />
         <Navbar />
       </>
