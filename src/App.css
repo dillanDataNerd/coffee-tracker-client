@@ -5,7 +5,7 @@ body {
   color: #212529;
   line-height: 1.5;
   text-align: center;
-  padding: 80px;
+  padding: 10px;
 }
 
 #root {
@@ -55,6 +55,10 @@ h3 {
   margin-bottom: 1.5rem;
 }
 
+.card-title {
+  flex-wrap: wrap;
+}
+
 .buttons-bar {
   background-color: rgba(255, 255, 255, 0.7); /* translucent */
   backdrop-filter: blur(6px); /* frosted glass */
@@ -71,6 +75,9 @@ h3 {
   display: flex;
   flex-direction: column;
   margin-top: 8px;
+    min-width: 280px;   /* 👈 set your minimum */
+
+  
 }
 
 /* Consistent image sizing */
@@ -79,6 +86,7 @@ h3 {
   aspect-ratio: 16 / 9; /* uniform image box */
   object-fit: cover; /* crop to fill nicely */
   width: 100%;
+  max-height: 140px;     /* don’t exceed this */
 }
 
 /* Clamp long text for neatness */
@@ -106,14 +114,13 @@ h3 {
   text-align: center;
 }
 
-/* The circle */
+/* The circle on the homepage */
 .coffee-circle {
-  /* responsive circular size */
   width: 180px;
   height: 180px;
   border-radius: 50%;
 
-  /* coffee-ish frosted look */
+  /* coffee coloured gradient  */
   background:
     radial-gradient(circle at 30% 30%, #f8efe6 0%, #fac78d 60%, #c77d1e 100%);
   box-shadow:
@@ -125,7 +132,6 @@ h3 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
   will-change: transform, box-shadow, filter;
 }
@@ -140,14 +146,6 @@ h3 {
   color: #3b2d28; /* dark espresso */
 }
 
-/* Unit label */
-.coffee-unit {
-  font-size: clamp(14px, 3.2vmin, 22px);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #6d5046; /* milk-chocolate */
-}
-
 /* Subtitle */
 .coffee-subtitle {
   margin: 0;
@@ -157,7 +155,7 @@ h3 {
   transition: opacity 220ms ease, transform 220ms ease;
 }
 
-/* Emphasis on screen hover (hover anywhere) */
+/* Emphasis on screen hover */
 .coffee-header:hover .coffee-circle {
   transform: scale(1.05);
   box-shadow:
@@ -172,8 +170,8 @@ h3 {
 
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%;         /* wider hit area */
-  height: 80px;      /* taller button */
-  top: 50%;          /* vertically center */
+  width: 5%;         
+  height: 80px;     
+  top: 50%;          
   transform: translateY(140%);
 }

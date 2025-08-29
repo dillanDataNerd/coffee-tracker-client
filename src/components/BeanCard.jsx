@@ -17,7 +17,7 @@ function BeanCard({ id, name, roaster, origin, notes, image }) {
         <p className="card-text flex-grow-1">{notes ?? ""}</p>
       </div>
       <div className="card-footer text-body-secondary">
-        {origin ?? "Origin unknown"}
+        {origin}
       </div>
     </div>
   );

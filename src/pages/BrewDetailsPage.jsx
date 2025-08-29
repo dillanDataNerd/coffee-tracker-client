@@ -131,7 +131,7 @@ function BrewDetailsPage() {
           <div className="col-4">
             <Link to={`/brews/new/${brew.id}`} className="w-100 d-block">
               <Button variant="success" className="w-100">
-                Brew again
+                Remake
               </Button>
             </Link>
           </div>
