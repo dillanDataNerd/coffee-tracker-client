@@ -2,8 +2,6 @@
 
 ## [See the App!](https://personal-coffee-tracker.netlify.app/)  
 
-![Coffee Logo](your-image-path-here.png)  
-
 A web application for coffee enthusiasts to log, track, and perfect their coffee brewing process. Catalog your coffee beans, record every brew with precise parameters, and review your history to dial in the perfect cup.  
 
 #### [Client Repo](https://github.com/dillanDataNerd/coffee-tracker-client)  
@@ -34,17 +32,6 @@ A web application for coffee enthusiasts to log, track, and perfect their coffee
 - **API:** Axios  
 - **Backend:** JSON Server (`_expand`, `_embed`, `_sort`, `_order`)  
 - **Linting:** ESLint  
-
----
-
-## Future wishlist  
-
-- User authentication (login, signup, profile).  
-- Image uploads for beans (bag/label photos).  
-- Brew statistics dashboard (weekly/monthly trends).  
-- Web-optimized layout refinements.
-- Make better taste suggestions in brew create form  
-- Social sharing of brews.  
 
 ---
 
@@ -109,7 +96,18 @@ A web application for coffee enthusiasts to log, track, and perfect their coffee
    ```bash
    npm run dev
    ```  
-5. Run the json sever (link below)
+5. Run the json sever (link above)
+
+---
+
+## Future wishlist  
+
+- User authentication (login, signup, profile).  
+- Image uploads for beans (bag/label photos).  
+- Brew statistics dashboard (weekly/monthly trends).  
+- Web-optimized layout refinements.
+- Make better taste suggestions in brew create form  
+- Social sharing of brews.  
 
 ---
 
