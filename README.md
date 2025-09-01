@@ -117,7 +117,3 @@ A web application for coffee enthusiasts to log, track, and perfect their coffee
 - [Client Repo](https://github.com/dillanDataNerd/coffee-tracker-client)  
 - [Server Repo](https://github.com/dillanDataNerd/coffee-tracker-json-server)  
 - [Deployed App](https://personal-coffee-tracker.netlify.app/)  
-
-
-### Slides  
-- [Presentation Slides](your-slides-link-here)  

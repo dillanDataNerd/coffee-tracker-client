@@ -14,7 +14,6 @@ function BrewsPage() {
   const [beanToFilter, setBeanToFilter] = useState("");
   const [methodToFilter, setMethodToFilter] = useState("");
 
-
   // call the backend when the page loads for all brews. Update the query based on the users filters and rerender based on the new data
   const getData = async () => {
     try {
@@ -38,17 +37,7 @@ function BrewsPage() {
   if (!pageLoaded) {
     return (
       <>
-        <LoadingCard />
-        <LoadingCard />
-
-        <Navbar />
-      </>
-    );
-  }
-
-  return (
-    <>
-    <h1>Brews</h1>
+        <h1>Brews</h1>
         <div className="d-flex gap-2 buttons-bar">
           <div className="flex-fill w-50">
             <FilterByBean
@@ -63,6 +52,31 @@ function BrewsPage() {
             />
           </div>
         </div>
+        <LoadingCard />
+        <LoadingCard />
+
+        <Navbar />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h1>Brews</h1>
+      <div className="d-flex gap-2 buttons-bar">
+        <div className="flex-fill w-50">
+          <FilterByBean
+            beanToFilter={beanToFilter}
+            setBeanToFilter={setBeanToFilter}
+          />
+        </div>
+        <div className="flex-fill w-50">
+          <FilterByMethod
+            methodToFilter={methodToFilter}
+            setMethodToFilter={setMethodToFilter}
+          />
+        </div>
+      </div>
 
       {brews.map((eachBrew) => {
         return (

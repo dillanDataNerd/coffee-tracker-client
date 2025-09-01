@@ -15,8 +15,7 @@ function BeansPage() {
   const [originToFilter, setOriginToFilter] = useState("");
   const [roasteryToFilter, setRoasteryToFilter] = useState("");
 
-
-    // call the backend when the page loads for all beans. Update the query based on the users filters and rerender based on the new data
+  // call the backend when the page loads for all beans. Update the query based on the users filters and rerender based on the new data
 
   const getData = async () => {
     try {
@@ -38,6 +37,23 @@ function BeansPage() {
   if (!pageLoaded) {
     return (
       <>
+        <h1>Beans</h1>
+
+        <div className="d-flex gap-2 buttons-bar">
+          <div className="flex-fill w-50">
+            <FilterByOrigin
+              originToFilter={originToFilter}
+              setOriginToFilter={setOriginToFilter}
+            />
+          </div>
+          <div className="flex-fill w-50">
+            <FilterByRoaster
+              roasteryToFilter={roasteryToFilter}
+              setRoasteryToFilter={setRoasteryToFilter}
+            />
+          </div>
+        </div>
+        
         <LoadingCard />
         <LoadingCard />
 
